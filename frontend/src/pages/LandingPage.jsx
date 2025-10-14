@@ -53,6 +53,8 @@ const LandingPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isFormValid) return;
+    
     setIsLoading(true);
     
     // Simulate API call
@@ -61,10 +63,24 @@ const LandingPage = () => {
     setIsLoading(false);
     setShowResults(true);
     
-    // Scroll to results after a brief delay
+    // Trigger card animations
     setTimeout(() => {
+      setCardsVisible(true);
       resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 300);
+  };
+
+  const getFocusAreaLabel = () => {
+    const focusAreas = {
+      'climate': 'Climate & Environment',
+      'education': 'Education',
+      'health': 'Health & Wellness',
+      'technology': 'Technology & Innovation',
+      'community': 'Community Development',
+      'arts': 'Arts & Culture',
+      'other': 'Various'
+    };
+    return focusAreas[formData.focusArea] || 'your';
   };
 
   return (
