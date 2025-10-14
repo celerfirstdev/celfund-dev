@@ -126,9 +126,11 @@ const LandingPage = () => {
                 placeholder="Describe your project, mission, and goals. Include key details about your target community and expected impact..."
                 value={formData.projectSummary}
                 onChange={(e) => setFormData({...formData, projectSummary: e.target.value})}
+                onFocus={() => setIsTyping(true)}
+                onBlur={() => setIsTyping(false)}
                 required
                 rows={6}
-                className="form-textarea"
+                className={`form-textarea ${isTyping && formData.projectSummary ? 'form-textarea-active' : ''}`}
               />
             </div>
             
