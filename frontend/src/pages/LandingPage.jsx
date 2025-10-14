@@ -90,26 +90,24 @@ const LandingPage = () => {
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
-          <div className="hero-badge">
-            <Sparkles size={16} />
-            <span>AI-Powered Grant Matching</span>
-          </div>
+          <TypingBadge />
           
           <h1 className="hero-title">
-            Find and win grants <span className="highlight">10× faster</span> — no spreadsheets, no consultants.
+            Find and win grants <span className="highlight">10× faster.</span><br />
+            No consultants. No spreadsheets.
           </h1>
           
           <p className="hero-subtitle">
             Paste your project summary to see matching active grants instantly.
           </p>
           
-          <Button onClick={scrollToForm} className="hero-cta">
+          <Button onClick={scrollToForm} className="hero-cta hero-cta-enhanced">
             Get 10 Grants Free
             <ArrowDown size={20} className="ml-2 animate-bounce" />
           </Button>
         </div>
         
-        <div className="hero-gradient"></div>
+        <div className="hero-gradient hero-gradient-animated"></div>
       </section>
 
       {/* Form Section */}
