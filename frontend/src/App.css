@@ -328,6 +328,17 @@
   margin: 0 auto;
 }
 
+.grant-card-wrapper {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.grant-card-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Grant Card */
 .grant-card {
   background: var(--bg-secondary);
