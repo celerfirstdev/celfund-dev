@@ -96,10 +96,14 @@
   min-height: 60px;
 }
 
+.hero-cta-enhanced {
+  box-shadow: 0 0 20px rgba(0, 255, 209, 0.3);
+}
+
 .hero-cta:hover {
   background: var(--accent-teal-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(0, 255, 209, 0.4);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(0, 255, 209, 0.5);
 }
 
 .hero-gradient {
