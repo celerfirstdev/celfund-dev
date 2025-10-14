@@ -218,6 +218,9 @@ const LandingPage = () => {
         <section className="results-section" ref={resultsRef}>
           <div className="container">
             <div className="results-header">
+              <div className="results-count-banner">
+                10 active grants found for <span className="focus-highlight">{getFocusAreaLabel()}</span> projects.
+              </div>
               <h2 className="results-title">Your Top 10 Grant Matches</h2>
               <div className="ai-disclaimer">
                 <span className="disclaimer-icon">⚠️</span>
@@ -226,8 +229,14 @@ const LandingPage = () => {
             </div>
             
             <div className="grants-grid">
-              {mockGrants.map((grant) => (
-                <GrantCard key={grant.id} grant={grant} onInteraction={handleInteraction} />
+              {mockGrants.map((grant, index) => (
+                <div 
+                  key={grant.id} 
+                  className={`grant-card-wrapper ${cardsVisible ? 'grant-card-visible' : ''}`}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <GrantCard grant={grant} onInteraction={handleInteraction} />
+                </div>
               ))}
             </div>
           </div>
