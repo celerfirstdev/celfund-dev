@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { ArrowDown, Sparkles, Search } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { ArrowDown, Search } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Textarea } from '../components/ui/textarea';
 import { Input } from '../components/ui/input';
@@ -7,6 +7,7 @@ import { Label } from '../components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import GrantCard from '../components/GrantCard';
 import UpgradeModal from '../components/UpgradeModal';
+import TypingBadge from '../components/TypingBadge';
 import { mockGrants } from '../mock-grants';
 import { Toaster } from '../components/ui/sonner';
 
@@ -21,9 +22,22 @@ const LandingPage = () => {
   const [showResults, setShowResults] = useState(false);
   const [interactionCount, setInteractionCount] = useState(0);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
+  const [cardsVisible, setCardsVisible] = useState(false);
   
   const formRef = useRef(null);
   const resultsRef = useRef(null);
+
+  // Form validation
+  useEffect(() => {
+    const isValid = 
+      formData.projectSummary.trim().length > 10 &&
+      formData.organizationType !== '' &&
+      formData.focusArea !== '' &&
+      formData.email.includes('@');
+    setIsFormValid(isValid);
+  }, [formData]);
 
   const scrollToForm = () => {
     formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
