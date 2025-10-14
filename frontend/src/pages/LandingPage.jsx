@@ -192,11 +192,15 @@ const LandingPage = () => {
               />
             </div>
             
-            <Button type="submit" disabled={isLoading} className="submit-btn">
+            <Button 
+              type="submit" 
+              disabled={isLoading || !isFormValid} 
+              className={`submit-btn ${isFormValid ? 'submit-btn-ready' : ''}`}
+            >
               {isLoading ? (
                 <>
                   <div className="loading-spinner"></div>
-                  Matching your grants...
+                  ✨ Matching your grants...
                 </>
               ) : (
                 <>
