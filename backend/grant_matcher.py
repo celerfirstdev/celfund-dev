@@ -129,6 +129,51 @@ class GrantMatcher:
         # Sort by relevance
         return sorted(grants, key=lambda x: x.get('relevance_score', 0), reverse=True)
     
+    # Source 0: Internal Database (from PDF and other curated sources)
+    async def fetch_internal_grants(self, keywords: List[str]) -> List[Dict]:
+        """Fetch from internal MongoDB grants collection"""
+        try:
+            if not self.db:
+                return []
+            
+            grants_collection = self.db.grants
+            
+            # Build search query using text search
+            search_query = " ".join(keywords[:5])
+            
+            # Text search on indexed fields
+            cursor = grants_collection.find(
+                {
+                    '$text': {'$search': search_query},
+                    'is_active': True
+                },
+                {
+                    'score': {'$meta': 'textScore'}
+                }
+            ).sort([('score', {'$meta': 'textScore'})]).limit(30)
+            
+            db_grants = await cursor.to_list(30)
+            
+            # Convert to standard format
+            formatted_grants = []
+            for grant in db_grants:
+                formatted_grants.append({
+                    'title': grant.get('title', ''),
+                    'funder': grant.get('funder', ''),
+                    'description': grant.get('description', ''),
+                    'deadline': grant.get('deadline', 'Rolling'),
+                    'amount': grant.get('funding_amount', 'Varies'),
+                    'url': grant.get('url', ''),
+                    'source': 'CelFund Database'
+                })
+            
+            logger.info(f"Fetched {len(formatted_grants)} grants from internal database")
+            return formatted_grants
+            
+        except Exception as e:
+            logger.warning(f"Internal database fetch failed: {e}")
+            return []
+    
     # Source 1: USAspending.gov API
     async def fetch_usaspending(self, keywords: List[str]) -> List[Dict]:
         """Fetch from USAspending.gov public API"""
