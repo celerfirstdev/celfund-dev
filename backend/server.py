@@ -17,6 +17,7 @@ import stripe
 from grant_matcher import GrantMatcher
 from database import Database
 from airtable_webhook import send_to_airtable
+from scraping_api import register_scraping_routes
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
