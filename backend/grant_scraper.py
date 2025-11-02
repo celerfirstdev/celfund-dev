@@ -16,14 +16,20 @@ from pathlib import Path
 import json
 import hashlib
 from fake_useragent import UserAgent
-import pyautogui
+
+# Selenium imports
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.chrome.options import Options
-import undetected_chromedriver as uc
+
+try:
+    import undetected_chromedriver as uc
+except ImportError:
+    uc = None
+    logging.warning("undetected_chromedriver not available, using standard Chrome driver")
 
 logger = logging.getLogger(__name__)
 
