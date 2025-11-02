@@ -65,8 +65,18 @@ class GrantMatcher:
             # Rank by relevance
             ranked_grants = self.rank_by_relevance(filtered_grants, keywords)
             
-            # Return top 50+ grants (minimum 50, up to all available)
-            return ranked_grants[:100]  # Return up to 100 grants
+            # Get top 30 most relevant grants
+            top_grants = ranked_grants[:30]
+            
+            # Randomly select 10 from the top results for variety
+            import random
+            if len(top_grants) > 10:
+                selected_grants = random.sample(top_grants, 10)
+                # Re-sort selected grants by relevance
+                selected_grants.sort(key=lambda x: x.get('relevance_score', 0), reverse=True)
+                return selected_grants
+            else:
+                return top_grants[:10]
             
         except Exception as e:
             logger.error(f"Grant matching failed: {e}")
