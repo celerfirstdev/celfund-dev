@@ -27,7 +27,7 @@ client = AsyncIOMotorClient(mongo_url)
 db_client = client[os.environ['DB_NAME']]
 
 # Initialize services
-grant_matcher = GrantMatcher()
+grant_matcher = GrantMatcher(mongo_url, os.environ['DB_NAME'])
 database = Database(mongo_url, os.environ['DB_NAME'])
 
 # Stripe configuration
