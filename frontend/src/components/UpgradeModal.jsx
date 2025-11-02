@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { X, Zap, CheckCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import {
@@ -9,10 +9,37 @@ import {
   DialogTitle,
 } from './ui/dialog';
 
-const UpgradeModal = ({ isOpen, onClose }) => {
-  const handleUpgrade = () => {
-    // Placeholder for Stripe test mode checkout
-    window.location.href = '/checkout?test=true';
+const UpgradeModal = ({ isOpen, onClose, userEmail }) => {
+  const [loading, setLoading] = useState(false);
+
+  const handleUpgrade = async () => {
+    setLoading(true);
+    
+    try {
+      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+      const response = await fetch(`${BACKEND_URL}/api/create-checkout-session`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: userEmail || 'guest@celfund.com'
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (data.success && data.checkout_url) {
+        // Redirect to Stripe checkout
+        window.location.href = data.checkout_url;
+      } else {
+        console.error('Failed to create checkout session');
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      setLoading(false);
+    }
   };
 
   const features = [
