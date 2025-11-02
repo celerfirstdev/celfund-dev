@@ -39,6 +39,11 @@ class GrantMatcher:
         Aggregate grants from multiple sources and return top 10 matches
         """
         try:
+            # Initialize MongoDB connection if not already done
+            if not self.client:
+                self.client = AsyncIOMotorClient(self.mongo_url)
+                self.db = self.client[self.db_name]
+            
             # Extract keywords from project summary
             keywords = self.extract_keywords(project_summary, focus_area)
             
