@@ -1,28 +1,29 @@
 {
   "version": 2,
-  "name": "celfund",
-  "buildCommand": "cd frontend && npm install --legacy-peer-deps --force && CI=false npm run build",
-  "outputDirectory": "frontend/build",
-  "framework": null,
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    },
+    {
+      "src": "backend/server.py",
+      "use": "@vercel/python"
+    }
+  ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/api/server.py"
+      "dest": "backend/server.py"
+    },
+    {
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
-      "dest": "/$1"
+      "dest": "/index.html"
     }
-  ],
-  "functions": {
-    "api/server.py": {
-      "runtime": "python3.9"
-    }
-  },
-  "build": {
-    "env": {
-      "CI": "false",
-      "DISABLE_ESLINT_PLUGIN": "true"
-    }
-  }
+  ]
 }
