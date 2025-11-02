@@ -133,7 +133,7 @@ class GrantMatcher:
     async def fetch_internal_grants(self, keywords: List[str]) -> List[Dict]:
         """Fetch from internal MongoDB grants collection"""
         try:
-            if not self.db:
+            if self.db is None:
                 return []
             
             grants_collection = self.db.grants
