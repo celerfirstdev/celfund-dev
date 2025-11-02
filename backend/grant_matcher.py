@@ -65,8 +65,8 @@ class GrantMatcher:
             # Rank by relevance
             ranked_grants = self.rank_by_relevance(filtered_grants, keywords)
             
-            # Return top 10
-            return ranked_grants[:10]
+            # Return top 50+ grants (minimum 50, up to all available)
+            return ranked_grants[:100]  # Return up to 100 grants
             
         except Exception as e:
             logger.error(f"Grant matching failed: {e}")
