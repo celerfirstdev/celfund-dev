@@ -1,15 +1,21 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, Request
+from fastapi.responses import JSONResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List
+from pydantic import BaseModel, Field, EmailStr
+from typing import List, Optional
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime
+import stripe
 
+# Import custom modules
+from grant_matcher import GrantMatcher
+from database import Database
+from airtable_webhook import send_to_airtable
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -17,7 +23,19 @@ load_dotenv(ROOT_DIR / '.env')
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+db_client = client[os.environ['DB_NAME']]
+
+# Initialize services
+grant_matcher = GrantMatcher()
+database = Database(mongo_url, os.environ['DB_NAME'])
+
+# Stripe configuration
+stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', '')
+STRIPE_PRICE_ID = os.environ.get('STRIPE_PRICE_ID', 'price_1234')  # Set your price ID
+FRONTEND_URL = os.environ.get('FRONTEND_URL', 'https://grant-finder-app.preview.emergentagent.com')
+
+# Airtable webhook
+AIRTABLE_WEBHOOK_URL = os.environ.get('AIRTABLE_WEBHOOK_URL', '')
 
 # Create the main app without a prefix
 app = FastAPI()
