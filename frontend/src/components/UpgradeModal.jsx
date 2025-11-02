@@ -96,7 +96,7 @@ const UpgradeModal = ({ isOpen, onClose, userEmail }) => {
             <Button onClick={handleUpgrade} className="upgrade-btn" disabled={loading}>
               {loading ? 'Opening checkout...' : 'Upgrade Now'}
             </Button>
-            <Button onClick={onClose} variant="ghost" className="continue-free-btn">
+            <Button onClick={handleContinueFree} variant="ghost" className="continue-free-btn">
               Continue Free
             </Button>
           </div>
