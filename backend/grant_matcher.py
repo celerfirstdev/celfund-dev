@@ -189,7 +189,7 @@ class GrantMatcher:
                     "keywords": [query]
                 },
                 "fields": ["Award ID", "Award Amount", "Description", "Awarding Agency", "Start Date"],
-                "limit": 10
+                "limit": 20
             }
             
             async with aiohttp.ClientSession() as session:
