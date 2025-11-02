@@ -57,8 +57,32 @@ const LandingPage = () => {
     
     setIsLoading(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    try {
+      // Call real API endpoint
+      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+      const response = await fetch(`${BACKEND_URL}/api/match`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          project_summary: formData.projectSummary,
+          organization_type: formData.organizationType,
+          focus_area: formData.focusArea,
+          email: formData.email
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (data.success && data.grants) {
+        // Update mock grants with real data
+        setRealGrants(data.grants);
+      }
+    } catch (error) {
+      console.error('Grant matching failed:', error);
+      // Fallback to mock data on error
+    }
     
     setIsLoading(false);
     setShowResults(true);
