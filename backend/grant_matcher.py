@@ -224,10 +224,7 @@ class GrantMatcher:
     async def fetch_grants_gov(self, keywords: List[str]) -> List[Dict]:
         """Fetch from Grants.gov public XML/RSS feed"""
         try:
-            # Using public search (no API key needed for basic access)
-            url = "https://www.grants.gov/xml-extract.html"
-            
-            # Mock data for now - in production would parse XML feed
+            # Mock data with more variety
             grants = [
                 {
                     'title': 'Community Development Block Grant Program',
@@ -243,6 +240,30 @@ class GrantMatcher:
                     'description': 'Supports environmental education projects that increase public awareness and knowledge.',
                     'deadline': (datetime.now() + timedelta(days=75)).isoformat(),
                     'amount': '$50,000 - $250,000',
+                    'url': 'https://www.grants.gov/search-grants.html'
+                },
+                {
+                    'title': 'Small Business Innovation Research',
+                    'funder': 'National Science Foundation',
+                    'description': 'Funding for small businesses to engage in research and development with commercialization potential.',
+                    'deadline': (datetime.now() + timedelta(days=90)).isoformat(),
+                    'amount': '$150,000 - $1,000,000',
+                    'url': 'https://www.grants.gov/search-grants.html'
+                },
+                {
+                    'title': 'Arts and Culture Programming Grant',
+                    'funder': 'National Endowment for the Arts',
+                    'description': 'Support for arts organizations to develop creative programming and community engagement.',
+                    'deadline': (datetime.now() + timedelta(days=85)).isoformat(),
+                    'amount': '$25,000 - $150,000',
+                    'url': 'https://www.grants.gov/search-grants.html'
+                },
+                {
+                    'title': 'Youth Development Initiative',
+                    'funder': 'Department of Health and Human Services',
+                    'description': 'Programs that support positive youth development and prevent risky behaviors.',
+                    'deadline': (datetime.now() + timedelta(days=70)).isoformat(),
+                    'amount': '$75,000 - $300,000',
                     'url': 'https://www.grants.gov/search-grants.html'
                 }
             ]
