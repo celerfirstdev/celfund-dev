@@ -246,7 +246,7 @@ class GrantWatchScraper:
                         })
                     '''
                 })
-            except:
+            except Exception:
                 pass  # CDP commands may not work in all configurations
             
             logger.info("Browser driver initialized")
