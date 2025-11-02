@@ -203,7 +203,13 @@ class GrantWatchScraper:
     
     def setup_driver(self):
         """Setup Selenium driver with anti-detection measures"""
-        options = uc.ChromeOptions()
+        options = None
+        
+        # Use undetected_chromedriver if available
+        if uc:
+            options = uc.ChromeOptions()
+        else:
+            options = Options()
         
         # Randomize window size
         width = random.randint(1200, 1920)
@@ -218,24 +224,34 @@ class GrantWatchScraper:
         # Random user agent
         options.add_argument(f'user-agent={self.behavior.ua.random}')
         
-        # Other realistic settings
+        # Headless mode and other settings
+        options.add_argument('--headless')
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-gpu')
         
-        # Initialize undetected Chrome driver
-        self.driver = uc.Chrome(options=options)
-        
-        # Additional anti-detection JavaScript
-        self.driver.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {
-            'source': '''
-                Object.defineProperty(navigator, 'webdriver', {
-                    get: () => undefined
+        # Initialize driver
+        try:
+            if uc:
+                self.driver = uc.Chrome(options=options)
+            else:
+                self.driver = webdriver.Chrome(options=options)
+            
+            # Additional anti-detection JavaScript
+            try:
+                self.driver.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {
+                    'source': '''
+                        Object.defineProperty(navigator, 'webdriver', {
+                            get: () => undefined
+                        })
+                    '''
                 })
-            '''
-        })
-        
-        logger.info("Browser driver initialized")
+            except:
+                pass  # CDP commands may not work in all configurations
+            
+            logger.info("Browser driver initialized")
+        except Exception as e:
+            logger.error(f"Failed to initialize driver: {e}")
     
     async def login_to_grantwatch(self, username: str, password: str):
         """Login to GrantWatch account"""
