@@ -325,9 +325,19 @@ const LandingPage = () => {
           <div className="container">
             <div className="results-header">
               <div className="results-count-banner">
-                10 active grants found for <span className="focus-highlight">{getFocusAreaLabel()}</span> projects.
+                {realGrants.length} active grants found for <span className="focus-highlight">{getFocusAreaLabel()}</span> projects.
               </div>
-              <h2 className="results-title">Your Top 10 Grant Matches</h2>
+              <h2 className="results-title">Your Top {realGrants.length} Grant Matches</h2>
+              
+              {apiError && (
+                <Alert className="mb-4 max-w-3xl mx-auto">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>
+                    {apiError}
+                  </AlertDescription>
+                </Alert>
+              )}
+              
               <div className="ai-disclaimer">
                 <span className="disclaimer-icon">⚠️</span>
                 <p>AI-generated grant matches are templates — please review and rewrite in your own words before submission.</p>
@@ -335,7 +345,7 @@ const LandingPage = () => {
             </div>
             
             <div className="grants-grid">
-              {displayGrants.map((grant, index) => (
+              {realGrants.map((grant, index) => (
                 <div 
                   key={grant.id || index} 
                   className={`grant-card-wrapper ${cardsVisible ? 'grant-card-visible' : ''}`}
