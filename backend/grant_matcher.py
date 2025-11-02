@@ -285,6 +285,30 @@ class GrantMatcher:
                 'deadline': (datetime.now() + timedelta(days=45)).isoformat(),
                 'amount': '$25,000 - $100,000',
                 'url': 'https://www.cof.org/community-foundations'
+            },
+            {
+                'title': 'Education Excellence Fund',
+                'funder': 'Gates Foundation',
+                'description': 'Supporting innovative educational programs and literacy initiatives in underserved areas.',
+                'deadline': (datetime.now() + timedelta(days=55)).isoformat(),
+                'amount': '$100,000 - $500,000',
+                'url': 'https://www.gatesfoundation.org'
+            },
+            {
+                'title': 'Women Empowerment Grant',
+                'funder': 'Global Women\'s Fund',
+                'description': 'Programs focused on women\'s economic empowerment and leadership development.',
+                'deadline': (datetime.now() + timedelta(days=65)).isoformat(),
+                'amount': '$50,000 - $200,000',
+                'url': 'https://www.globalfundforwomen.org'
+            },
+            {
+                'title': 'Climate Action Initiative',
+                'funder': 'Environmental Defense Fund',
+                'description': 'Projects addressing climate change through community-based solutions.',
+                'deadline': (datetime.now() + timedelta(days=80)).isoformat(),
+                'amount': '$75,000 - $350,000',
+                'url': 'https://www.edf.org'
             }
         ]
         return grants
