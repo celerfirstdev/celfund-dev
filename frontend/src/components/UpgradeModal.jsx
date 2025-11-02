@@ -8,6 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from './ui/dialog';
+import { toast } from 'sonner';
 
 const UpgradeModal = ({ isOpen, onClose, userEmail }) => {
   const [loading, setLoading] = useState(false);
