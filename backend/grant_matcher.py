@@ -208,7 +208,7 @@ class GrantMatcher:
         grants = []
         results = data.get('results', [])
         
-        for item in results[:5]:
+        for item in results[:15]:  # Increased from 5 to 15
             grants.append({
                 'title': item.get('Award ID', 'Federal Grant Opportunity'),
                 'funder': item.get('Awarding Agency', 'U.S. Federal Government'),
