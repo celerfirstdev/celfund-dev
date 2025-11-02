@@ -6,16 +6,25 @@ import logging
 from bs4 import BeautifulSoup
 import re
 from collections import Counter
+from motor.motor_asyncio import AsyncIOMotorClient
+import os
 
 logger = logging.getLogger(__name__)
 
 class GrantMatcher:
     """
-    Multi-source grant matching system aggregating from 7+ public data sources
+    Multi-source grant matching system aggregating from 7+ public data sources + internal database
     """
     
-    def __init__(self):
+    def __init__(self, mongo_url: str = None, db_name: str = None):
+        # Initialize MongoDB connection for internal grants database
+        self.mongo_url = mongo_url or os.environ.get('MONGO_URL')
+        self.db_name = db_name or os.environ.get('DB_NAME')
+        self.client = None
+        self.db = None
+        
         self.sources = [
+            self.fetch_internal_grants,  # NEW: Internal database source
             self.fetch_usaspending,
             self.fetch_grants_gov,
             self.fetch_foundation_directory,
