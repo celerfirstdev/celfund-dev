@@ -40,7 +40,7 @@ class GrantMatcher:
         """
         try:
             # Initialize MongoDB connection if not already done
-            if not self.client:
+            if self.client is None:
                 self.client = AsyncIOMotorClient(self.mongo_url)
                 self.db = self.client[self.db_name]
             
