@@ -17,7 +17,8 @@ const UpgradeModal = ({ isOpen, onClose, userEmail }) => {
     setLoading(true);
     
     try {
-      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || window.location.origin;
+      
       const response = await fetch(`${BACKEND_URL}/api/create-checkout-session`, {
         method: 'POST',
         headers: {
@@ -28,19 +29,27 @@ const UpgradeModal = ({ isOpen, onClose, userEmail }) => {
         })
       });
       
-      const data = await response.json();
-      
-      if (data.success && data.checkout_url) {
-        // Redirect to Stripe checkout
-        window.location.href = data.checkout_url;
-      } else {
-        console.error('Failed to create checkout session');
-        setLoading(false);
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success && data.checkout_url) {
+          window.location.href = data.checkout_url;
+          return;
+        }
       }
+      
+      toast.error('Checkout unavailable. Please contact support@celfund.com');
+      setLoading(false);
+      
     } catch (error) {
       console.error('Checkout error:', error);
+      toast.error('Payment system unavailable. Please try again later.');
       setLoading(false);
     }
+  };
+
+  const handleContinueFree = () => {
+    toast.info('Continuing with free version - 10 grants available');
+    onClose();
   };
 
   const features = [
