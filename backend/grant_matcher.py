@@ -410,6 +410,30 @@ class GrantMatcher:
                 'deadline': (datetime.now() + timedelta(days=80)).isoformat(),
                 'amount': '$50,000 - $150,000',
                 'url': 'https://corporate-foundation.example.com/grants'
+            },
+            {
+                'title': 'Diversity and Inclusion Grant',
+                'funder': 'Microsoft Philanthropies',
+                'description': 'Supporting programs that advance diversity, equity, and inclusion in tech.',
+                'deadline': (datetime.now() + timedelta(days=75)).isoformat(),
+                'amount': '$75,000 - $300,000',
+                'url': 'https://www.microsoft.com/philanthropy'
+            },
+            {
+                'title': 'Community Infrastructure Development',
+                'funder': 'Amazon Community Fund',
+                'description': 'Infrastructure projects that benefit local communities near Amazon facilities.',
+                'deadline': (datetime.now() + timedelta(days=90)).isoformat(),
+                'amount': '$100,000 - $500,000',
+                'url': 'https://www.aboutamazon.com/community'
+            },
+            {
+                'title': 'Sustainable Agriculture Program',
+                'funder': 'General Mills Foundation',
+                'description': 'Projects promoting sustainable farming practices and food system resilience.',
+                'deadline': (datetime.now() + timedelta(days=60)).isoformat(),
+                'amount': '$40,000 - $175,000',
+                'url': 'https://www.generalmills.com/foundation'
             }
         ]
         return grants
