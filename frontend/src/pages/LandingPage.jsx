@@ -257,9 +257,9 @@ const LandingPage = () => {
             </div>
             
             <div className="grants-grid">
-              {mockGrants.map((grant, index) => (
+              {displayGrants.map((grant, index) => (
                 <div 
-                  key={grant.id} 
+                  key={grant.id || index} 
                   className={`grant-card-wrapper ${cardsVisible ? 'grant-card-visible' : ''}`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
