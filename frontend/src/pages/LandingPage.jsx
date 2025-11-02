@@ -128,10 +128,11 @@ const LandingPage = () => {
     if (!isFormValid) return;
     
     setIsLoading(true);
+    setApiError(null);
     
     try {
-      // Call real API endpoint
-      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || window.location.origin;
+      
       const response = await fetch(`${BACKEND_URL}/api/match`, {
         method: 'POST',
         headers: {
@@ -145,21 +146,30 @@ const LandingPage = () => {
         })
       });
       
-      const data = await response.json();
-      
-      if (data.success && data.grants) {
-        // Update mock grants with real data
-        setRealGrants(data.grants);
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success && data.grants && data.grants.length > 0) {
+          setRealGrants(data.grants.slice(0, 10));
+          toast.success(`Found ${data.grants.length} matching grants!`);
+        } else {
+          const contextualGrants = generateContextualGrants();
+          setRealGrants(contextualGrants);
+          toast.info('Showing curated grant matches');
+        }
+      } else {
+        throw new Error('API response not OK');
       }
     } catch (error) {
-      console.error('Grant matching failed:', error);
-      // Fallback to mock data on error
+      console.error('Grant matching error:', error);
+      const contextualGrants = generateContextualGrants();
+      setRealGrants(contextualGrants);
+      setApiError('Showing curated matches - live database temporarily unavailable');
+      toast.warning('Using offline mode - showing curated matches');
     }
     
     setIsLoading(false);
     setShowResults(true);
     
-    // Trigger card animations
     setTimeout(() => {
       setCardsVisible(true);
       resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
