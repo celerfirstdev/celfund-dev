@@ -33,7 +33,7 @@ database = Database(mongo_url, os.environ['DB_NAME'])
 # Stripe configuration
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', '')
 STRIPE_PRICE_ID = os.environ.get('STRIPE_PRICE_ID', 'price_1234')  # Set your price ID
-FRONTEND_URL = os.environ.get('FRONTEND_URL', 'https://fundai.preview.emergentagent.com')
+FRONTEND_URL = os.environ.get('FRONTEND_URL', 'https://scraper-suite.preview.emergentagent.com')
 
 # Airtable webhook
 AIRTABLE_WEBHOOK_URL = os.environ.get('AIRTABLE_WEBHOOK_URL', '')
