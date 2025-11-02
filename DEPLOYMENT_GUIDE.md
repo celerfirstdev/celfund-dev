@@ -97,8 +97,8 @@
 MONGO_URL="mongodb://localhost:27017"
 DB_NAME="test_database"
 CORS_ORIGINS="*"
-STRIPE_SECRET_KEY="sk_test_51SP5iG2ZzRHLN4I67xvaZ4evsvdRZb9S2LgJbtP9DwMTX40pXlWtzBxgoktlfJLLW2ksYHzDUdCYRVaMuTOpdZxW00HHuuwnkw"
-STRIPE_PRICE_ID="price_1234567890"
+STRIPE_SECRET_KEY="sk_test_xxx"  # Add your Stripe test key in .env file only
+STRIPE_PRICE_ID="price_xxx"  # Add your Stripe price ID in .env file only
 AIRTABLE_WEBHOOK_URL="https://hooks.airtable.com/workflows/v1/genericWebhook/appm8zgsZ3r90PBrs/wflIYX3L8jgwHupRC/wtrQDd2Nchl5ptqK9"
 FRONTEND_URL="https://grant-finder-app.preview.emergentagent.com"
 ```
