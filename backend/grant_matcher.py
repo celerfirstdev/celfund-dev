@@ -150,9 +150,9 @@ class GrantMatcher:
                 {
                     'score': {'$meta': 'textScore'}
                 }
-            ).sort([('score', {'$meta': 'textScore'})]).limit(30)
+            ).sort([('score', {'$meta': 'textScore'})]).limit(50)
             
-            db_grants = await cursor.to_list(30)
+            db_grants = await cursor.to_list(50)
             
             # Convert to standard format
             formatted_grants = []
