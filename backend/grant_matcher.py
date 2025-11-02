@@ -371,6 +371,30 @@ class GrantMatcher:
                 'deadline': (datetime.now() + timedelta(days=50)).isoformat(),
                 'amount': '$75,000 - $200,000',
                 'url': 'https://philanthropynewsdigest.org/rfps'
+            },
+            {
+                'title': 'Rural Healthcare Access Initiative',
+                'funder': 'Robert Wood Johnson Foundation',
+                'description': 'Improving healthcare access in rural and underserved communities.',
+                'deadline': (datetime.now() + timedelta(days=65)).isoformat(),
+                'amount': '$100,000 - $400,000',
+                'url': 'https://www.rwjf.org'
+            },
+            {
+                'title': 'Youth Sports and Wellness Program',
+                'funder': 'Nike Community Impact Fund',
+                'description': 'Supporting youth sports programs that promote health and community engagement.',
+                'deadline': (datetime.now() + timedelta(days=55)).isoformat(),
+                'amount': '$25,000 - $100,000',
+                'url': 'https://www.nike.com/community'
+            },
+            {
+                'title': 'Food Security Initiative',
+                'funder': 'Walmart Foundation',
+                'description': 'Programs addressing hunger and food insecurity in local communities.',
+                'deadline': (datetime.now() + timedelta(days=70)).isoformat(),
+                'amount': '$50,000 - $250,000',
+                'url': 'https://walmart.org'
             }
         ]
         return grants
