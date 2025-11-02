@@ -290,7 +290,11 @@ const LandingPage = () => {
       </footer>
 
       {/* Upgrade Modal */}
-      <UpgradeModal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)} />
+      <UpgradeModal 
+        isOpen={showUpgradeModal} 
+        onClose={() => setShowUpgradeModal(false)}
+        userEmail={formData.email}
+      />
     </div>
   );
 };
