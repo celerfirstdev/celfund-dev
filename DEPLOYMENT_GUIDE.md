@@ -69,8 +69,8 @@
 
 ### 5. Stripe Payment Integration
 **Mode:** Test Mode
-**Publishable Key:** pk_test_51SP5iG2ZzRHLN4I6VuL7iOgqrYKD35tvp6RybkgrLe7XIBRweS0tVkIAs7RhHjEe6ytQ3Q2qDVWVtygQmbgjoqZp00EPltPvG5
-**Secret Key:** Configured in backend .env
+**Publishable Key:** pk_test_xxx (configured in .env)
+**Secret Key:** sk_test_xxx (configured in backend .env)
 
 **Flow:**
 1. User clicks "Upgrade Now" 
