@@ -725,6 +725,111 @@
   }
 }
 
+/* Success Page */
+.success-page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+.success-container {
+  max-width: 600px;
+  text-align: center;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.success-icon-wrapper {
+  margin-bottom: 32px;
+  animation: scaleIn 0.6s ease-out 0.2s backwards;
+}
+
+.success-icon {
+  color: var(--accent-neon);
+  filter: drop-shadow(0 0 20px rgba(57, 255, 20, 0.4));
+}
+
+.success-title {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+  animation: fadeInUp 0.6s ease-out 0.3s backwards;
+}
+
+.success-message {
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+  animation: fadeInUp 0.6s ease-out 0.4s backwards;
+}
+
+.success-details {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 32px;
+  text-align: left;
+  animation: fadeInUp 0.6s ease-out 0.5s backwards;
+}
+
+.success-detail-item {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.success-detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.session-info {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  font-family: monospace;
+}
+
+.return-home-btn {
+  background: var(--accent-teal);
+  color: var(--bg-primary);
+  padding: 16px 40px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  animation: fadeInUp 0.6s ease-out 0.6s backwards;
+}
+
+.return-home-btn:hover {
+  background: var(--accent-teal-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 255, 209, 0.4);
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .hero-title {
@@ -754,5 +859,13 @@
 
   .footer-content {
     flex-direction: column;
+  }
+  
+  .success-title {
+    font-size: 36px;
+  }
+  
+  .success-details {
+    padding: 24px;
   }
 }
