@@ -23,12 +23,5 @@
       "src": "/(.*)",
       "dest": "frontend/$1"
     }
-  ],
-  "env": {
-    "FRONTEND_URL": "@frontend_url",
-    "STRIPE_SECRET_KEY": "@stripe_secret_key",
-    "STRIPE_PRICE_ID": "@stripe_price_id",
-    "AIRTABLE_WEBHOOK_URL": "@airtable_webhook_url",
-    "POSTGRES_URL": "@postgres_url"
-  }
+  ]
 }
