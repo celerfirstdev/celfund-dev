@@ -26,12 +26,80 @@ const LandingPage = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [cardsVisible, setCardsVisible] = useState(false);
   const [realGrants, setRealGrants] = useState([]);
+  const [apiError, setApiError] = useState(null);
   
   const formRef = useRef(null);
   const resultsRef = useRef(null);
-  
-  // Use real grants if available, otherwise fall back to mock
-  const displayGrants = realGrants.length > 0 ? realGrants : mockGrants;
+
+  // Generate contextual grants based on user input
+  const generateContextualGrants = () => {
+    const { focusArea, organizationType } = formData;
+    
+    const grantsByFocus = {
+      climate: [
+        { title: 'Climate Action Innovation Fund', funder: 'Environmental Protection Agency', amount: '$100,000 - $500,000' },
+        { title: 'Clean Energy Transition Grant', funder: 'Department of Energy', amount: '$150,000 - $750,000' },
+        { title: 'Carbon Reduction Initiative', funder: 'Climate Foundation', amount: '$50,000 - $250,000' },
+        { title: 'Sustainable Communities Program', funder: 'USDA Rural Development', amount: '$75,000 - $300,000' },
+        { title: 'Green Infrastructure Grant', funder: 'EPA Water Division', amount: '$100,000 - $400,000' }
+      ],
+      education: [
+        { title: 'Education Innovation & Research', funder: 'U.S. Department of Education', amount: '$100,000 - $4,000,000' },
+        { title: 'STEM Excellence Initiative', funder: 'National Science Foundation', amount: '$50,000 - $500,000' },
+        { title: 'Digital Learning Innovation', funder: 'Gates Foundation', amount: '$250,000 - $1,000,000' },
+        { title: 'Teacher Development Grant', funder: 'NEA Foundation', amount: '$25,000 - $100,000' },
+        { title: 'School Improvement Program', funder: 'Department of Education', amount: '$75,000 - $350,000' }
+      ],
+      health: [
+        { title: 'Health Equity Grant Program', funder: 'HRSA', amount: '$75,000 - $350,000' },
+        { title: 'Community Health Initiative', funder: 'Robert Wood Johnson Foundation', amount: '$100,000 - $500,000' },
+        { title: 'Mental Health Services Grant', funder: 'SAMHSA', amount: '$50,000 - $250,000' },
+        { title: 'Rural Health Network', funder: 'HRSA', amount: '$100,000 - $300,000' },
+        { title: 'Public Health Innovation', funder: 'CDC Foundation', amount: '$150,000 - $600,000' }
+      ],
+      technology: [
+        { title: 'Small Business Innovation Research', funder: 'NSF', amount: '$50,000 - $250,000' },
+        { title: 'Advanced Technology Grant', funder: 'NIST', amount: '$100,000 - $500,000' },
+        { title: 'Digital Transformation Fund', funder: 'Microsoft Philanthropies', amount: '$75,000 - $300,000' },
+        { title: 'AI for Good Initiative', funder: 'Google.org', amount: '$100,000 - $750,000' },
+        { title: 'Cybersecurity Excellence', funder: 'DHS', amount: '$150,000 - $400,000' }
+      ],
+      community: [
+        { title: 'Community Development Block Grant', funder: 'HUD', amount: '$100,000 - $500,000' },
+        { title: 'Neighborhood Revitalization', funder: 'LISC', amount: '$50,000 - $250,000' },
+        { title: 'Economic Development Initiative', funder: 'EDA', amount: '$150,000 - $3,000,000' },
+        { title: 'Community Foundation Grant', funder: 'NCF', amount: '$25,000 - $150,000' },
+        { title: 'Social Impact Fund', funder: 'Ford Foundation', amount: '$100,000 - $500,000' }
+      ],
+      arts: [
+        { title: 'Arts & Culture Recovery', funder: 'NEA', amount: '$25,000 - $150,000' },
+        { title: 'Creative Communities Fund', funder: 'Mellon Foundation', amount: '$50,000 - $300,000' },
+        { title: 'Cultural Heritage Preservation', funder: 'NEH', amount: '$75,000 - $400,000' },
+        { title: 'Artist Fellowship Program', funder: 'MacArthur Foundation', amount: '$100,000 - $625,000' },
+        { title: 'Public Art Initiative', funder: 'Bloomberg Philanthropies', amount: '$50,000 - $200,000' }
+      ]
+    };
+    
+    const templates = grantsByFocus[focusArea] || grantsByFocus.community;
+    const orgDesc = {
+      nonprofit: 'nonprofit organizations',
+      startup: 'startups and small businesses',
+      education: 'educational institutions',
+      research: 'research organizations',
+      government: 'government agencies',
+      other: 'organizations'
+    }[organizationType] || 'organizations';
+    
+    return templates.slice(0, 10).map((template, i) => ({
+      id: `gen-${i}`,
+      title: template.title,
+      funder: template.funder,
+      description: `Supporting ${orgDesc} working on ${focusArea} initiatives with measurable community impact. Priority given to projects with sustainable outcomes.`,
+      deadline: new Date(Date.now() + (30 + i * 12) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      amount: template.amount,
+      url: '#'
+    }));
+  };
 
   // Form validation
   useEffect(() => {
