@@ -55,6 +55,23 @@ class StatusCheck(BaseModel):
 class StatusCheckCreate(BaseModel):
     client_name: str
 
+class GrantMatchRequest(BaseModel):
+    project_summary: str
+    organization_type: str
+    focus_area: str
+    email: EmailStr
+
+class Grant(BaseModel):
+    title: str
+    funder: str
+    description: str
+    deadline: str
+    amount: str
+    url: str
+
+class CheckoutRequest(BaseModel):
+    email: EmailStr
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
