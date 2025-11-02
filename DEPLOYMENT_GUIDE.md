@@ -1,7 +1,7 @@
 # CelFund Deployment Guide
 
 ## 🚀 Live Application
-**Public URL:** https://grant-finder-app.preview.emergentagent.com
+**Public URL:** https://fundai.preview.emergentagent.com
 
 ## ✅ Implementation Summary
 
@@ -25,7 +25,7 @@
 - Returns top 10 most relevant grants in <5 seconds
 
 ### 2. API Endpoints
-**Base URL:** https://grant-finder-app.preview.emergentagent.com/api
+**Base URL:** https://fundai.preview.emergentagent.com/api
 
 **Endpoints:**
 - `POST /api/match` - Match grants from 7+ sources
@@ -100,12 +100,12 @@ CORS_ORIGINS="*"
 STRIPE_SECRET_KEY="sk_test_xxx"  # Add your Stripe test key in .env file only
 STRIPE_PRICE_ID="price_xxx"  # Add your Stripe price ID in .env file only
 AIRTABLE_WEBHOOK_URL="https://hooks.airtable.com/workflows/v1/genericWebhook/appm8zgsZ3r90PBrs/wflIYX3L8jgwHupRC/wtrQDd2Nchl5ptqK9"
-FRONTEND_URL="https://grant-finder-app.preview.emergentagent.com"
+FRONTEND_URL="https://fundai.preview.emergentagent.com"
 ```
 
 ### Frontend (.env)
 ```bash
-REACT_APP_BACKEND_URL=https://grant-finder-app.preview.emergentagent.com
+REACT_APP_BACKEND_URL=https://fundai.preview.emergentagent.com
 WDS_SOCKET_PORT=443
 REACT_APP_ENABLE_VISUAL_EDITS=true
 ENABLE_HEALTH_CHECK=false
@@ -180,7 +180,7 @@ db.grant_submissions.countDocuments({})
 
 ### Test the Grant Matching API:
 ```bash
-curl -X POST https://grant-finder-app.preview.emergentagent.com/api/match \
+curl -X POST https://fundai.preview.emergentagent.com/api/match \
   -H "Content-Type: application/json" \
   -d '{
     "project_summary": "We are building a community water project",
@@ -191,14 +191,14 @@ curl -X POST https://grant-finder-app.preview.emergentagent.com/api/match \
 ```
 
 ### Test Stripe Checkout:
-1. Visit: https://grant-finder-app.preview.emergentagent.com
+1. Visit: https://fundai.preview.emergentagent.com
 2. Fill form and submit
 3. Click any grant action twice (triggers modal)
 4. Click "Upgrade Now"
 5. Use Stripe test card: 4242 4242 4242 4242
 
 ### Test Success Page:
-Visit: https://grant-finder-app.preview.emergentagent.com/success?session_id=test123
+Visit: https://fundai.preview.emergentagent.com/success?session_id=test123
 
 ## 📦 Dependencies Added
 
@@ -261,7 +261,7 @@ For issues or questions:
 - Backend logs: `/var/log/supervisor/backend.*.log`
 - Frontend logs: `/var/log/supervisor/frontend.*.log`
 - Database: MongoDB on localhost:27017
-- API: https://grant-finder-app.preview.emergentagent.com/api
+- API: https://fundai.preview.emergentagent.com/api
 
 ---
 
