@@ -1,6 +1,9 @@
 {
   "version": 2,
   "name": "celfund",
+  "buildCommand": "cd frontend && yarn install && yarn build",
+  "installCommand": "cd frontend && yarn install",
+  "framework": null,
   "builds": [
     {
       "src": "frontend/package.json",
