@@ -449,6 +449,38 @@ class GrantMatcher:
                 'deadline': (datetime.now() + timedelta(days=65)).isoformat(),
                 'amount': '$50,000 - $250,000',
                 'url': 'https://www.rd.usda.gov/programs-services/business-programs'
+            },
+            {
+                'title': 'Historic Preservation Fund',
+                'funder': 'National Park Service',
+                'description': 'Grants for preservation of historic properties and cultural heritage sites.',
+                'deadline': (datetime.now() + timedelta(days=85)).isoformat(),
+                'amount': '$30,000 - $200,000',
+                'url': 'https://www.nps.gov/subjects/historicpreservationfund'
+            },
+            {
+                'title': 'Energy Efficiency and Renewable Energy',
+                'funder': 'Department of Energy',
+                'description': 'Supporting clean energy projects and energy efficiency improvements.',
+                'deadline': (datetime.now() + timedelta(days=70)).isoformat(),
+                'amount': '$100,000 - $1,000,000',
+                'url': 'https://www.energy.gov/grants'
+            },
+            {
+                'title': 'Veterans Job Training Program',
+                'funder': 'Department of Veterans Affairs',
+                'description': 'Programs providing job training and employment services for veterans.',
+                'deadline': (datetime.now() + timedelta(days=60)).isoformat(),
+                'amount': '$50,000 - $300,000',
+                'url': 'https://www.va.gov/grants'
+            },
+            {
+                'title': 'STEM Education Excellence',
+                'funder': 'National Science Foundation',
+                'description': 'Enhancing STEM education through innovative teaching methods and curricula.',
+                'deadline': (datetime.now() + timedelta(days=95)).isoformat(),
+                'amount': '$75,000 - $400,000',
+                'url': 'https://www.nsf.gov/funding'
             }
         ]
         return grants
