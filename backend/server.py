@@ -204,6 +204,9 @@ async def get_stats():
 # Include the router in the main app
 app.include_router(api_router)
 
+# Register scraping routes
+register_scraping_routes(app)
+
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
