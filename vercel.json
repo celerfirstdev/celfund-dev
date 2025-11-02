@@ -1,17 +1,21 @@
 {
   "version": 2,
   "name": "celfund",
+  "framework": "create-react-app",
   "builds": [
     {
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "build"
+        "distDir": "frontend/build"
       }
     },
     {
       "src": "backend/server.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "15mb"
+      }
     }
   ],
   "routes": [
@@ -20,10 +24,23 @@
       "dest": "backend/server.py"
     },
     {
+      "src": "/static/(.*)",
+      "dest": "frontend/build/static/$1"
+    },
+    {
       "src": "/(.*)",
-      "dest": "frontend/$1"
+      "dest": "frontend/build/index.html"
     }
   ],
-  "installCommand": "cd frontend && npm install --legacy-peer-deps",
-  "buildCommand": "cd frontend && npm run build"
+  "build": {
+    "env": {
+      "CI": "false",
+      "GENERATE_SOURCEMAP": "false",
+      "NODE_OPTIONS": "--max-old-space-size=8192",
+      "DISABLE_ESLINT_PLUGIN": "true"
+    }
+  },
+  "installCommand": "cd frontend && npm install --legacy-peer-deps --force",
+  "buildCommand": "cd frontend && npm run build",
+  "outputDirectory": "frontend/build"
 }
