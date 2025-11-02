@@ -47,10 +47,10 @@ Go to **Settings → Environment Variables** and paste these:
 FRONTEND_URL=https://celfund.vercel.app
 REACT_APP_BACKEND_URL=https://celfund.vercel.app
 
-# Your Stripe Production Keys
-STRIPE_SECRET_KEY=sk_test_51SP5iG2ZzRHLN4I67xvaZ4evsvdRZb9S2LgJbtP9DwMTX40pXlWtzBxgoktlfJLLW2ksYHzDUdCYRVaMuTOpdZxW00HHuuwnkw
-STRIPE_PUBLISHABLE_KEY=pk_test_51SP5iG2ZzRHLN4I6VuL7iOgqrYKD35tvp6RybkgrLe7XIBRweS0tVkIAs7RhHjEe6ytQ3Q2qDVWVtygQmbgjoqZp00EPltPvG5
-STRIPE_PRICE_ID=price_1234567890
+# Your Stripe Keys (replace with your actual keys)
+STRIPE_SECRET_KEY=sk_test_xxx
+STRIPE_PUBLISHABLE_KEY=pk_test_xxx
+STRIPE_PRICE_ID=price_xxx
 
 # Airtable
 AIRTABLE_WEBHOOK_URL=https://hooks.airtable.com/workflows/v1/genericWebhook/appm8zgsZ3r90PBrs/wflIYX3L8jgwHupRC/wtrQDd2Nchl5ptqK9
