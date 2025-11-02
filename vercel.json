@@ -4,15 +4,10 @@
   "outputDirectory": "frontend/build",
   "installCommand": "echo 'Skipping root install'",
   "framework": null,
-  "functions": {
-    "backend/server.py": {
-      "runtime": "python3.12"
-    }
-  },
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "/backend/server.py"
+      "source": "/api/(.*)",
+      "destination": "/backend/server.py"
     }
   ]
 }
