@@ -25,9 +25,13 @@ const LandingPage = () => {
   const [isFormValid, setIsFormValid] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [cardsVisible, setCardsVisible] = useState(false);
+  const [realGrants, setRealGrants] = useState([]);
   
   const formRef = useRef(null);
   const resultsRef = useRef(null);
+  
+  // Use real grants if available, otherwise fall back to mock
+  const displayGrants = realGrants.length > 0 ? realGrants : mockGrants;
 
   // Form validation
   useEffect(() => {
