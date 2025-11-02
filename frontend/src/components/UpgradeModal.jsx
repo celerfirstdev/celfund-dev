@@ -83,8 +83,8 @@ const UpgradeModal = ({ isOpen, onClose, userEmail }) => {
           </div>
           
           <div className="modal-actions">
-            <Button onClick={handleUpgrade} className="upgrade-btn">
-              Upgrade Now
+            <Button onClick={handleUpgrade} className="upgrade-btn" disabled={loading}>
+              {loading ? 'Opening checkout...' : 'Upgrade Now'}
             </Button>
             <Button onClick={onClose} variant="ghost" className="continue-free-btn">
               Continue Free
