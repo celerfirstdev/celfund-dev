@@ -332,6 +332,30 @@ class GrantMatcher:
                 'deadline': (datetime.now() + timedelta(days=70)).isoformat(),
                 'amount': '$50,000 - $300,000',
                 'url': 'https://hcr.ny.gov/funding-opportunities'
+            },
+            {
+                'title': 'Texas Small Business Growth Fund',
+                'funder': 'Texas Economic Development',
+                'description': 'Grants for small businesses to expand operations and create jobs.',
+                'deadline': (datetime.now() + timedelta(days=60)).isoformat(),
+                'amount': '$35,000 - $150,000',
+                'url': 'https://gov.texas.gov/business'
+            },
+            {
+                'title': 'Florida Environmental Restoration',
+                'funder': 'Florida Department of Environmental Protection',
+                'description': 'Projects focused on coastal restoration and water quality improvement.',
+                'deadline': (datetime.now() + timedelta(days=75)).isoformat(),
+                'amount': '$100,000 - $500,000',
+                'url': 'https://floridadep.gov/grants'
+            },
+            {
+                'title': 'Illinois Education Innovation',
+                'funder': 'Illinois State Board of Education',
+                'description': 'Innovative educational programs and STEM initiatives for K-12 schools.',
+                'deadline': (datetime.now() + timedelta(days=50)).isoformat(),
+                'amount': '$40,000 - $200,000',
+                'url': 'https://www.isbe.net/grants'
             }
         ]
         return grants
