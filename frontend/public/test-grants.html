@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CelFund Grant Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        .grant { border: 1px solid #ccc; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        button { background: #0070f3; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 5px; }
+        button:hover { background: #0051cc; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        select, textarea { width: 100%; padding: 10px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>🧪 CelFund Grant API Test</h1>
+    <p>This tests if the backend is returning different grants each time.</p>
+    
+    <div>
+        <label>Focus Area:</label>
+        <select id="focusArea">
+            <option value="education">Education</option>
+            <option value="health">Health</option>
+            <option value="climate">Climate</option>
+            <option value="technology">Technology</option>
+            <option value="community">Community</option>
+            <option value="arts">Arts</option>
+        </select>
+        
+        <label>Organization Type:</label>
+        <select id="orgType">
+            <option value="nonprofit">Nonprofit</option>
+            <option value="startup">Startup</option>
+            <option value="education">Education Institution</option>
+        </select>
+        
+        <button onclick="testGrants()">🔍 Fetch Grants (Test 1)</button>
+        <button onclick="testGrants()">🔄 Fetch Again (Test 2)</button>
+        <button onclick="testGrants()">🔄 Fetch Again (Test 3)</button>
+    </div>
+    
+    <div id="status"></div>
+    <div id="results"></div>
+    
+    <script>
+        async function testGrants() {
+            const status = document.getElementById('status');
+            const results = document.getElementById('results');
+            const focusArea = document.getElementById('focusArea').value;
+            const orgType = document.getElementById('orgType').value;
+            
+            status.innerHTML = '<div class="status">⏳ Fetching grants...</div>';
+            results.innerHTML = '';
+            
+            try {
+                const response = await fetch('http://localhost:8001/api/match', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        project_summary: `Test project for ${focusArea}`,
+                        organization_type: orgType,
+                        focus_area: focusArea,
+                        email: 'test@test.com'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success && data.grants) {
+                    const timestamp = new Date().toLocaleTimeString();
+                    status.innerHTML = `<div class="status success">✅ Success! Retrieved ${data.grants.length} grants at ${timestamp}</div>`;
+                    
+                    results.innerHTML = '<h3>Grants Returned:</h3>';
+                    data.grants.forEach((grant, i) => {
+                        results.innerHTML += `
+                            <div class="grant">
+                                <strong>${i+1}. ${grant.title}</strong><br>
+                                <small>Funder: ${grant.funder} | Amount: ${grant.amount}</small><br>
+                                <small>Deadline: ${grant.deadline}</small>
+                            </div>
+                        `;
+                    });
+                } else {
+                    status.innerHTML = '<div class="status error">❌ No grants returned</div>';
+                }
+            } catch (error) {
+                status.innerHTML = `<div class="status error">❌ Error: ${error.message}</div>`;
+            }
+        }
+        
+        // Auto-test on load
+        window.onload = () => testGrants();
+    </script>
+</body>
+</html>
