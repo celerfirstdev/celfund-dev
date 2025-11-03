@@ -26,6 +26,8 @@ const LandingPage = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [cardsVisible, setCardsVisible] = useState(false);
   const [realGrants, setRealGrants] = useState([]);
+  const [allGrants, setAllGrants] = useState([]);
+  const [showingFreeGrants, setShowingFreeGrants] = useState(false);
   const [apiError, setApiError] = useState(null);
   
   const formRef = useRef(null);
