@@ -196,17 +196,20 @@ async def create_checkout_session(request: CheckoutRequest):
             'checkout_url': checkout_session.url
         }
         
-    except stripe.error.AuthenticationError as e:
-        logger.error(f"Stripe authentication error: {e}")
-        return JSONResponse(
-            status_code=401,
-            content={'success': False, 'error': 'Payment authentication failed. Please check Stripe credentials.'}
-        )
     except Exception as e:
-        logger.error(f"Stripe checkout error: {e}")
+        error_msg = str(e)
+        logger.error(f"Stripe checkout error: {error_msg}")
+        
+        # Check for authentication errors
+        if 'api_key' in error_msg.lower() or 'authentication' in error_msg.lower():
+            return JSONResponse(
+                status_code=401,
+                content={'success': False, 'error': 'Payment authentication failed. Invalid Stripe API key.'}
+            )
+        
         return JSONResponse(
             status_code=500,
-            content={'success': False, 'error': f'Failed to create checkout session: {str(e)}'}
+            content={'success': False, 'error': f'Payment system error: {error_msg}'}
         )
 
 @api_router.get("/stats")
