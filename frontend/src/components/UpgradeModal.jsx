@@ -29,20 +29,21 @@ const UpgradeModal = ({ isOpen, onClose, userEmail }) => {
         })
       });
       
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success && data.checkout_url) {
-          window.location.href = data.checkout_url;
-          return;
-        }
+      const data = await response.json();
+      
+      if (response.ok && data.success && data.checkout_url) {
+        window.location.href = data.checkout_url;
+        return;
       }
       
-      toast.error('Checkout unavailable. Please contact support@celfund.com');
+      // Show specific error message
+      const errorMsg = data.error || 'Payment system unavailable';
+      toast.error(errorMsg);
       setLoading(false);
       
     } catch (error) {
       console.error('Checkout error:', error);
-      toast.error('Payment system unavailable. Please try again later.');
+      toast.error('Unable to connect to payment system. Please try again later.');
       setLoading(false);
     }
   };
