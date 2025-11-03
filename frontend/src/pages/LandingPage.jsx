@@ -120,9 +120,16 @@ const LandingPage = () => {
   const handleInteraction = () => {
     const newCount = interactionCount + 1;
     setInteractionCount(newCount);
-    if (newCount >= 2 && !showUpgradeModal) {
+    if (newCount >= 2 && !showUpgradeModal && !showingFreeGrants) {
       setShowUpgradeModal(true);
     }
+  };
+
+  const handleContinueFree = () => {
+    setShowUpgradeModal(false);
+    setShowingFreeGrants(true);
+    setRealGrants(allGrants.slice(0, 10)); // Show all 10 grants
+    toast.success('Showing all 10 free grants!');
   };
 
   const handleSubmit = async (e) => {
