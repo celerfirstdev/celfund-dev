@@ -127,25 +127,21 @@ const LandingPage = () => {
 
   const handleContinueFree = () => {
     setShowUpgradeModal(false);
+    
+    // Show all 10 grants
+    const grantsToShow = allGrants.length >= 10 ? allGrants.slice(0, 10) : allGrants;
+    setRealGrants(grantsToShow);
     setShowingFreeGrants(true);
     
-    // Make sure we show all 10 grants
-    if (allGrants.length >= 10) {
-      setRealGrants(allGrants.slice(0, 10));
-    } else if (allGrants.length > 5) {
-      setRealGrants(allGrants);
-    } else {
-      // Generate full 10 grants
-      const fullGrants = generateContextualGrants();
-      setAllGrants(fullGrants);
-      setRealGrants(fullGrants);
-    }
+    toast.success(`Showing all ${grantsToShow.length} free grants!`);
     
-    toast.success('Showing all 10 free grants!');
-    
-    // Force re-render of grant cards
+    // Force complete re-render of cards with proper delay
     setCardsVisible(false);
-    setTimeout(() => setCardsVisible(true), 100);
+    setTimeout(() => {
+      setCardsVisible(true);
+      // Scroll to results
+      resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 200);
   };
 
   const handleSubmit = async (e) => {
