@@ -395,7 +395,7 @@ const LandingPage = () => {
       {/* Upgrade Modal */}
       <UpgradeModal 
         isOpen={showUpgradeModal} 
-        onClose={() => setShowUpgradeModal(false)}
+        onClose={handleContinueFree}
         userEmail={formData.email}
       />
     </div>
