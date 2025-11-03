@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
-const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+// Helper function to get API base URL
+// In development, use relative URLs to leverage proxy (setupProxy.js)
+// In production, use REACT_APP_BACKEND_URL if set, otherwise assume same origin
+const getApiBaseUrl = () => {
+  if (process.env.REACT_APP_BACKEND_URL) {
+    return process.env.REACT_APP_BACKEND_URL;
+  }
+  // Use empty string for relative URLs (proxy will handle in dev)
+  return '';
+};
+
+const API_URL = getApiBaseUrl();
 
 const ScrapingDashboard = () => {
   // State management

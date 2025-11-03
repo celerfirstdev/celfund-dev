@@ -152,9 +152,13 @@ const LandingPage = () => {
     setApiError(null);
     
     try {
-      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || window.location.origin;
-      
-      const response = await fetch(`${BACKEND_URL}/api/match`, {
+      // Use relative URL to leverage proxy in development
+      // In production, set REACT_APP_BACKEND_URL or ensure frontend/backend share origin
+      const apiUrl = process.env.REACT_APP_BACKEND_URL
+        ? `${process.env.REACT_APP_BACKEND_URL}/api/match`
+        : '/api/match';
+
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

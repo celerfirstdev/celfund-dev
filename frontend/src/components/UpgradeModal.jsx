@@ -17,9 +17,12 @@ const UpgradeModal = ({ isOpen, onClose, userEmail }) => {
     setLoading(true);
     
     try {
-      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || window.location.origin;
-      
-      const response = await fetch(`${BACKEND_URL}/api/create-checkout-session`, {
+      // Use relative URL to leverage proxy in development
+      const apiUrl = process.env.REACT_APP_BACKEND_URL
+        ? `${process.env.REACT_APP_BACKEND_URL}/api/create-checkout-session`
+        : '/api/create-checkout-session';
+
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
