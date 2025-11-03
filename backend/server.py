@@ -161,6 +161,21 @@ async def create_checkout_session(request: CheckoutRequest):
     Create Stripe checkout session for upgrade
     """
     try:
+        # Validate Stripe configuration
+        if not stripe.api_key or stripe.api_key == '':
+            logger.error("Stripe API key not configured")
+            return JSONResponse(
+                status_code=400,
+                content={'success': False, 'error': 'Payment system not configured. Please contact support.'}
+            )
+        
+        if not STRIPE_PRICE_ID or STRIPE_PRICE_ID == 'price_1234':
+            logger.error("Stripe Price ID not configured")
+            return JSONResponse(
+                status_code=400,
+                content={'success': False, 'error': 'Payment system not configured. Please contact support.'}
+            )
+        
         # Create Stripe checkout session
         checkout_session = stripe.checkout.Session.create(
             customer_email=request.email,
@@ -181,11 +196,17 @@ async def create_checkout_session(request: CheckoutRequest):
             'checkout_url': checkout_session.url
         }
         
+    except stripe.error.AuthenticationError as e:
+        logger.error(f"Stripe authentication error: {e}")
+        return JSONResponse(
+            status_code=401,
+            content={'success': False, 'error': 'Payment authentication failed. Please check Stripe credentials.'}
+        )
     except Exception as e:
         logger.error(f"Stripe checkout error: {e}")
         return JSONResponse(
             status_code=500,
-            content={'success': False, 'error': 'Failed to create checkout session'}
+            content={'success': False, 'error': f'Failed to create checkout session: {str(e)}'}
         )
 
 @api_router.get("/stats")
