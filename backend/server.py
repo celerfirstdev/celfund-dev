@@ -17,7 +17,14 @@ import stripe
 from grant_matcher import GrantMatcher
 from database import Database
 from airtable_webhook import send_to_airtable
-from scraping_api import register_scraping_routes
+
+# Try to import scraping API, but make it optional
+try:
+    from scraping_api import register_scraping_routes
+    SCRAPING_AVAILABLE = True
+except ImportError as e:
+    print(f"Warning: Scraping API not available: {e}")
+    SCRAPING_AVAILABLE = False
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -237,8 +244,11 @@ async def get_stats():
 # Include the router in the main app
 app.include_router(api_router)
 
-# Register scraping routes
-register_scraping_routes(app)
+# Register scraping routes if available
+if SCRAPING_AVAILABLE:
+    register_scraping_routes(app)
+else:
+    print("Scraping routes not registered - dependencies missing")
 
 # Configure logging
 logging.basicConfig(
