@@ -158,12 +158,16 @@ const LandingPage = () => {
       if (response.ok) {
         const data = await response.json();
         if (data.success && data.grants && data.grants.length > 0) {
-          setRealGrants(data.grants.slice(0, 10));
-          toast.success(`Found ${data.grants.length} matching grants!`);
+          setAllGrants(data.grants.slice(0, 10)); // Store all 10
+          setRealGrants(data.grants.slice(0, 5)); // Show only 5 initially
+          setShowingFreeGrants(false);
+          toast.success(`Found ${data.grants.length} matching grants! Showing 5 free.`);
         } else {
           const contextualGrants = generateContextualGrants();
-          setRealGrants(contextualGrants);
-          toast.info('Showing curated grant matches');
+          setAllGrants(contextualGrants);
+          setRealGrants(contextualGrants.slice(0, 5)); // Show only 5 initially
+          setShowingFreeGrants(false);
+          toast.info('Showing 5 curated grant matches');
         }
       } else {
         throw new Error('API response not OK');
@@ -171,9 +175,11 @@ const LandingPage = () => {
     } catch (error) {
       console.error('Grant matching error:', error);
       const contextualGrants = generateContextualGrants();
-      setRealGrants(contextualGrants);
+      setAllGrants(contextualGrants);
+      setRealGrants(contextualGrants.slice(0, 5)); // Show only 5 initially
+      setShowingFreeGrants(false);
       setApiError('Showing curated matches - live database temporarily unavailable');
-      toast.warning('Using offline mode - showing curated matches');
+      toast.warning('Using offline mode - showing 5 curated matches');
     }
     
     setIsLoading(false);
